@@ -2,12 +2,15 @@ package com.Pranav.ticketbooking.Controller;
 
 import com.Pranav.ticketbooking.Model.Customer;
 import com.Pranav.ticketbooking.Model.Movie;
+import com.Pranav.ticketbooking.Repository.TicketRepository;
 import com.Pranav.ticketbooking.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,6 +18,8 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+
 
     @PostMapping("/saveMovie")
     public ResponseEntity<String> saveMovie(@RequestBody Movie movie)
@@ -38,7 +43,7 @@ public class BookingController {
          {
             return new ResponseEntity<>("seat no u choose is already booked,please choose another",HttpStatus.BAD_REQUEST);
          }
-         if(bookingService.ticketsBookedinNo(moviename)>5)
+         if(bookingService.ticketsBookedinNo(moviename)>20)
            {
                return new ResponseEntity<>("sorry its HouseFull",HttpStatus.BAD_REQUEST);
            }
@@ -67,8 +72,9 @@ public class BookingController {
     }
 
     @GetMapping("/movie/getTickets/{movieName}")
-    public ResponseEntity<?> getTicketsofMovie(@RequestParam String movieName)
+    @ResponseBody
+    public List<Map<String, Object>> getTicketsofMovie(@RequestParam String movieName)
     {
-          return new ResponseEntity<>(bookingService.bookedTickets(movieName),HttpStatus.OK);
+        return bookingService.getMovieSeatNos(movieName);
     }
 }

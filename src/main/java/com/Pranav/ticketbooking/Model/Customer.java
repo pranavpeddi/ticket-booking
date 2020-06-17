@@ -14,6 +14,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Cid;
+
  @Column(unique = true)
     private String customerName;
     @Column(unique = true)

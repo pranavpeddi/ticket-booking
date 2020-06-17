@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookingService {
@@ -105,5 +106,9 @@ public class BookingService {
         return movie.getTickets().size();
     }
 
-
+   public List<Map<String,Object>> getMovieSeatNos(String movieName)
+   {
+       Movie movie=movieRepository.findByMovieName(movieName);
+       return ticketRepository.getTicketByMovie_MId(movie.getmId());
+   }
 }
