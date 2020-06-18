@@ -61,7 +61,7 @@ localhost:8080/movie/getTickets/{movieName}?movieName=hera pheri
 ```
 
 
-##Acknwledgements
+## Acknwledgements
 
 Open source community
 
